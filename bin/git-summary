@@ -1,0 +1,74 @@
+#!/bin/bash
+
+# 解析命令行参数
+OPTIONS=$(getopt -o s:u:p:r: --long since:,until:,path:,sortby: -n "$0" -- "$@")
+
+# 检查 getopt 是否成功解析
+if [ $? -ne 0 ]; then
+    exit 1
+fi
+
+eval set -- "$OPTIONS"
+
+# 默认值
+since=""
+until=""
+path="$(pwd)"
+sortby="lines"
+
+# 解析参数
+while true; do
+    case "$1" in
+        -s|--since)
+            since="$2"
+            shift 2
+            ;;
+        -u|--until)
+            until="$2"
+            shift 2
+            ;;
+        -p|--path)
+            path="$2"
+            shift 2
+            ;;
+        -r|--sortby)
+            sort="$2"
+            shift 2
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Invalid option"
+            exit 1
+            ;;
+    esac
+done
+
+if [ -n "$since" ]; then since_arg="--since=$since"; fi
+if [ -n "$until" ]; then until_arg="--until=$until"; fi
+
+# 打印解析结果
+echo "since: $since"
+echo "until: $until"
+echo "path: $path"
+echo "sortby: $sortby"
+
+# 获取所有贡献者的姓名列表和对应的总行数、添加行数或删除行数
+contributors=$(git log $since_arg $until_arg --format="%aN" | sort -u)
+declare -A matrix
+
+# 循环遍历每个贡献者，并计算相应的行数
+for contributor in $contributors; do
+    matrix[$contributor,"lines"]=$(git log $since_arg $until_arg --author="$contributor" --oneline --shortstat --pretty="" | awk '{add+=$4; del+=$6} END {print add+del}')
+    matrix[$contributor,"insertions"]=$(git log $since_arg $until_arg --author="$contributor" --oneline --shortstat --pretty="" | awk '{print $4}' | grep -Eo '[0-9]+' | paste -sd+ - | bc)
+	matrix[$contributor,"deletions"]=$(git log $since_arg $until_arg --author="$contributor" --oneline --shortstat --pretty="" | awk '{print $6}' | grep -Eo '[0-9]+' | paste -sd+ - | bc)
+	matrix[$contributor,"commits"]=$(git log $since_arg $until_arg --author="$contributor" --oneline | wc -l)
+done
+
+echo '---------------------------------------------------------------------'
+printf "%-25.25s %-10.10s %-10.10s %-10.10s %-10.10s\n" "Contributor" "TotalLines" "Insertions" "Deletions" "Commits"
+for contributor in $contributors; do
+	printf "%-25.25s %-10.10s %-10.10s %-10.10s %-10.10s\n" "$contributor" "${matrix[$contributor,"lines"]}" "${matrix[$contributor,"insertions"]}" "${matrix[$contributor,"deletions"]}" "${matrix[$contributor,"commits"]}"
+done
