@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+theme=$1
+
+if [[ $theme == "" ]]; then
+	theme=$(ls $XDG_CONFIG_HOME/alacritty/mythemes | fzf)
+fi
+
+if [[ ! $theme == "" ]]; then
+	echo "switch to $theme"
+	ln -sf $XDG_CONFIG_HOME/alacritty/mythemes/$theme $XDG_CONFIG_HOME/alacritty/theme.yml
+	touch $XDG_CONFIG_HOME/alacritty/alacritty.yml
+fi

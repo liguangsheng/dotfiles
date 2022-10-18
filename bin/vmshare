@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+VMSHARE_MOUNT_POINT="/mnt/hgfs/vmshare"
+
+function _mount {
+    [[ ! -d $VMSHARE_MOUNT ]] && sudo mkdir -p $VMSHARE_MOUNT_POINT
+
+    if mount | grep vmhgfs-fuse &> /dev/null ; then
+        echo "$VMSHARE_MOUNT already mounted"
+    else
+        sudo vmhgfs-fuse -o allow_other -o auto_unmount .host:/vmshare $VMSHARE_MOUNT_POINT
+    fi
+}
+
+function _cp {
+    sudo cp $1 $VMSHARE_MOUNT_POINT
+}
+
+function _cd {
+    cd $VMSHARE_MOUNT_POINT
+}
+
+_$@

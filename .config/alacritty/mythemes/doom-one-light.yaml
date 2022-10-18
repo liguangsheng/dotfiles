@@ -1,0 +1,36 @@
+# Base16 One Light - alacritty color config
+# Daniel Pfeifer (http://github.com/purpleKarrot)
+colors:
+  # Default colors
+  primary:
+    background: '#fafafa'
+    foreground: '#383a42'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '#fafafa'
+    cursor: '#383a42'
+
+  # Normal colors
+  normal:
+    black:   '#1b2229'
+    red:     '#e45649'
+    green:   '#50a14f'
+    yellow:  '#986801'
+    blue:    '#4078f2'
+    magenta: '#a626a4'
+    cyan:    '#0184bc'
+    white:   '#f0f0f0'
+
+  # Bright colors
+  bright:
+    black:   '#000000'
+    red:     '#e45649'
+    green:   '#50a14f'
+    yellow:  '#986801'
+    blue:    '#4078f2'
+    magenta: '#a626a4'
+    cyan:    '#0184bc'
+    white:   '#f0f0f0'
+
+draw_bold_text_with_bright_colors: false
