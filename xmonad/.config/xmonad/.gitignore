@@ -1,0 +1,7 @@
+.stack-work
+stack.yaml*
+xmonad.hi
+xmonad.o
+xmonad
+xmonad-contrib
+bin
