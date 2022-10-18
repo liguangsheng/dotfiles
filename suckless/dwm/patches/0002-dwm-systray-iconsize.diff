@@ -1,0 +1,59 @@
+diff --git a/dwm/config.def.h b/dwm/config.def.h
+index 86fcc84..c8aa930 100644
+--- a/dwm/config.def.h
++++ b/dwm/config.def.h
+@@ -6,6 +6,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
+ static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
+ static const unsigned int systrayonleft = 0;   	/* 0: systray in the right corner, >0: systray on left of status text */
+ static const unsigned int systrayspacing = 2;   /* systray spacing */
++static const unsigned int systrayiconsize = 16; /* systray icon size in px */
+ static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
+ static const int showsystray        = 1;     /* 0 means no systray */
+ static const int showbar            = 1;     /* 0 means no bar */
+diff --git a/dwm/dwm.c b/dwm/dwm.c
+index 941c1c0..b69cadf 100644
+--- a/dwm/dwm.c
++++ b/dwm/dwm.c
+@@ -2217,23 +2217,14 @@ updatestatus(void)
+ void
+ updatesystrayicongeom(Client *i, int w, int h)
+ {
+-	if (i) {
+-		i->h = bh;
+-		if (w == h)
+-			i->w = bh;
+-		else if (h == bh)
+-			i->w = w;
+-		else
+-			i->w = (int) ((float)bh * ((float)w / (float)h));
+-		applysizehints(i, &(i->x), &(i->y), &(i->w), &(i->h), False);
+-		/* force icons into the systray dimensions if they don't want to */
+-		if (i->h > bh) {
+-			if (i->w == i->h)
+-				i->w = bh;
+-			else
+-				i->w = (int) ((float)bh * ((float)i->w / (float)i->h));
+-			i->h = bh;
+-		}
++  if (!i) return;
++  applysizehints(i, &(i->x), &(i->y), &(i->w), &(i->h), False);
++  if (systrayiconsize >= bh) {
++    i->w = bh;
++    i->h = bh;
++  } else {
++    i->w = systrayiconsize;
++    i->h = systrayiconsize;
+ 	}
+ }
+ 
+@@ -2312,7 +2303,9 @@ updatesystray(void)
+ 		XMapRaised(dpy, i->win);
+ 		w += systrayspacing;
+ 		i->x = w;
+-		XMoveResizeWindow(dpy, i->win, i->x, 0, i->w, i->h);
++    if (systrayiconsize >= bh) i->y = 0;
++    else i->y = (bh - systrayiconsize) / 2;
++    XMoveResizeWindow(dpy, i->win, i->x, i->y, i->w, i->h);
+ 		w += i->w;
+ 		if (i->mon != m)
+ 			i->mon = m;
