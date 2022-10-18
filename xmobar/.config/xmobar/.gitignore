@@ -1,0 +1,8 @@
+bin
+.stack-work/
+stack.yaml*
+xmobar.hi
+xmobar.o
+xmobar-git/
+xmobar
+xmobar-x86_64-linux

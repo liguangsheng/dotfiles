@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# param:
+# - $1: 字符串长度
+
+head -c $((($1 + 1) / 2)) /dev/urandom | hexdump -e '"%x"' | cut -c 1-$1

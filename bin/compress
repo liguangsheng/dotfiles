@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo "Usage: compress source_file_or_directory target_file"
+  echo "Supported formats: tar.gz, tar.bz2, tar.xz, zip, rar, gz, tar, tbz2, tgz, 7z"
+  return 1
+fi
+
+if [ ! -e "$1" ]; then
+  echo "Error: source file or directory does not exist"
+  return 1
+fi
+
+source_file="$1"
+target_file="$2"
+format="${target_file##*.}"  # 提取目标文件的后缀
+
+case $format in
+  tar.gz) tar czvf "$target_file" "$source_file" ;;
+  tar.bz2) tar cjvf "$target_file" "$source_file" ;;
+  tar.xz) tar cJvf "$target_file" "$source_file" ;;
+  zip) zip -r "$target_file" "$source_file" ;;
+  rar) rar a "$target_file" "$source_file" ;;
+  gz) gzip -k "$source_file" -c > "$target_file" ;;
+  tar) tar cvf "$target_file" "$source_file" ;;
+  tbz2) tar cjvf "$target_file" "$source_file" ;;
+  tgz) tar czvf "$target_file" "$source_file" ;;
+  7z) 7z a "$target_file" "$source_file" ;;
+  *)
+    echo "Error: unsupported format"
+    echo "Supported formats: tar.gz, tar.bz2, tar.xz, zip, rar, gz, tar, tbz2, tgz, 7z"
+    return 1
+    ;;
+esac
+
+echo "Compression complete: $target_file"

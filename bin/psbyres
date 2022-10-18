@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+n=20
+if [[ $# -eq 1 ]]; then
+    n=$1
+fi
+((n=n+1))
+ps -eo comm,pid,size,rss,vsize,maj_flt,min_flt,pmem,pcpu,time --sort -rss | numfmt --header --to=iec --field 6-7 | numfmt --header --from-unit=1024 --to=iec --field 3-5 | column -t | head -n $n

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# print a <hr />
+str=$(date "+%Y-%m-%d %H:%M:%S")
+
+str=" $str "
+sep="─"
+width=$(tput cols)
+
+prefix=""
+for ((i = 0; i < $((($width - ${#str}) / 2)); i++)); do
+    prefix=$prefix$sep
+done
+echo "$prefix$str$prefix"

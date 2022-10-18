@@ -1,0 +1,19 @@
+# ;; -*- mode: shell-script; -*-
+# vim:ft=sh
+
+zmodule zsh-users/zsh-syntax-highlighting
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-completions
+zmodule completion
+zmodule archive
+zmodule input
+
+
+zmodule ohmyzsh/ohmyzsh --root plugins/git
+zmodule ohmyzsh/ohmyzsh --root plugins/kubectl
+
+
+zmodule djui/alias-tips
+zmodule Aloxaf/fzf-tab
+zmodule sgpthomas/zsh-up-dir
+zmodule trystan2k/zsh-tab-title
