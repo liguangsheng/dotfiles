@@ -49,9 +49,9 @@ alias dur='sudo du -h -d 1 --exclude=proc | sort -h'
 
 # `starship' as prompt
 if [[ -n $DISPLAY ]]; then
-    export STARSHIP_CONFIG=~/dotfiles/.config/starship_gui.toml
+    export STARSHIP_CONFIG=~/dotfiles/starship/starship_gui.toml
 else
-    export STARSHIP_CONFIG=~/dotfiles/.config/starship_tty.toml
+    export STARSHIP_CONFIG=~/dotfiles/starship/starship_tty.toml
 fi
 command -v starship &> /dev/null &&  eval "$(starship init zsh)"
 
@@ -110,29 +110,15 @@ alias proxy="http_proxy=http://127.0.0.1:1081 https_proxy=http://127.0.0.1:1081 
 alias cclip="xclip -selection c"
 
 # git
-## 统计git历史增加删除行数记录
-function git_summary() {
-    echo "current git user is $(git config --get user.name)"
-    git log --author="$(git config --get user.name)" --pretty=tformat: --numstat | gawk '{ add += $1 ; subs += $2 ; loc += $1 + $2 } END { printf "added lines: %s removed lines : %s total lines: %s\n",add,subs,loc }'
-}
+function gcof() {git checkout `git diff --name-only | fzf`}
 alias git_proxy="git -c https.proxy='127.0.0.1:1081' -c https.proxy='127.0.0.1:1081'"
 alias gacn!="git add --all && git commit -v --amend --no-edit"
+alias gac.="git add --all && git commit -m ."
+alias gac.p="git add --all && git commit -m . && git push -f"
 alias gacp!="git add --all && git commit -v --amend --no-edit && git push -f"
-function gcof() {git checkout `git diff --name-only | fzf`}
 
 # kubectl
 export KUBECONFIG="$HOME/.kube/config"
-alias kps="kubectl get pods"
-alias fkps="kubectl get pods | fzf | awk '{print $1}'"
-alias fklogs='kubectl logs -f `fkps`'
-function kexec {
-    pod=`kubectl get pods $@ | tail -n +2 | fzf | awk '{print $1}'`
-    kubectl exec $@ -it $pod -- /bin/bash
-}
-function klogs {
-    pod=`kubectl get pods $@ | tail -n +2 | fzf | awk '{print $1}'`
-    kubectl logs -f $pod
-}
 
 # rust
 export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static

@@ -409,7 +409,7 @@ require("lazy").setup({
     barbecue,
     file_explorer,
     telescope,
-    lsp,
+    -- lsp,
     autopairs,
     snippet,
     completion,

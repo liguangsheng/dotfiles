@@ -57,7 +57,7 @@ TERMINAL = guess_terminal([
 
 WALLPAPER = os.path.expanduser("~/.config/qtile/wallpaper.jpg")
 
-WIDGET_FONT = "JetBrainsMono Nerd Font, AR PL UKai CN"
+WIDGET_FONT = "Ubuntu Nerd Font, AR PL UKai CN"
 ICON_FONT = "JetBrainsMono Nerd Font"
 
 COLOR_PRIM    = "#4f7da4"
@@ -66,6 +66,7 @@ COLOR_BG      = "#282c34"
 COLOR_BG_ALT  = "#222222"
 COLOR_FG      = "#f8f8f8"
 COLOR_FG_ALT  = "#666666"
+COLOR_BORDER_NORMAL = "#444444"
 
 ROFI_DRUN_CMD = f"rofi -show drun -theme-str '*{{primary: {COLOR_PRIM};background: {COLOR_BG};}}'"
 ROFI_RUN_CMD  = f"rofi -show run  -theme-str '*{{primary: {COLOR_PRIM};background: {COLOR_BG};}}'"
@@ -163,13 +164,13 @@ layouts = [
         margin=6,
         border_width=3,
         ratio=0.5,
-        border_normal=COLOR_BG,
+        border_normal=COLOR_BORDER_NORMAL,
         border_focus=COLOR_PRIM,
     ),
     layout.Max(
         margin=6,
         birder_width=2,
-        border_normal=COLOR_BG_ALT,
+        border_normal=COLOR_BORDER_NORMAL,
         border_focus=COLOR_PRIM,
     ),
     # Try more layouts by unleashing below layouts.
@@ -214,9 +215,9 @@ left_widgets = [
     widget.CurrentLayout(),
     barsep,
     widget.GroupBox(
-        fontsize = 12,
-        # margin_y = 3,
-        # margin_x = 0,
+        fontsize = 9,
+        margin_y = 3,
+        margin_x = 8,
         padding_y = 5,
         padding_x = 1,
         borderwidth = 1,
@@ -245,7 +246,7 @@ right_widgets = [
     barsep,
     config_widget.Uptime(format=' {days}d {hours}h {minutes}m {seconds}s'),
     barsep,
-    widget.Net(format=' {down}/{up}'),
+    widget.Net(format=' {down}|{up}'),
     barsep,
     widget.CPU(threshold=90, format=" {load_percent:.0f}%"),
     barsep,
@@ -269,7 +270,7 @@ right_widgets = [
 screens = [
     Screen(
         wallpaper=WALLPAPER,
-        wallpaper_mode="scratch",
+        wallpaper_mode="fill",
         top=bar.Bar(
             left_widgets + right_widgets,
             background=COLOR_BG,

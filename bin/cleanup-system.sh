@@ -3,7 +3,7 @@
 # 清理systemd日志
 if command -v journalctl &> /dev/null; then
 	echo "---> cleaning systemd journal"
-	journalctl --vacuum-time=3d
+	sudo journalctl --vacuum-time=3d
 fi
 
 # 清理pacman缓存

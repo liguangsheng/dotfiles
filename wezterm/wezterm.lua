@@ -1,7 +1,7 @@
 local wezterm = require 'wezterm'
 
 return {
-  color_scheme = 'OneDark (base16)',
+  color_scheme = 'Pali (Gogh)',
   font = wezterm.font_with_fallback {
     {
       family = 'JetBrains Mono Nerd Font',
@@ -11,10 +11,10 @@ return {
       family = 'FiraCode Nerd Font',
       weight = 'Medium',
     },
-    "LXGW WenKai Mono",
-    "WenQuanYi Zen Hei Mono",
     "WenQuanYi Micro Hei Mono",
+    "WenQuanYi Zen Hei Mono",
     "AR PL UKai CN",
+    "LXGW WenKai Mono",
   },
   font_size = 9.0,
   enable_scroll_bar = true,

@@ -22,9 +22,8 @@ end
 
 theme.font = "JetBrainsMono Nerd Font 9"
 
--- static const char col_prim[]        = "#13a4b6";
-theme.primary = "#4f7da4" -- 蓝黑
--- theme.primary = "#458586" -- green
+-- theme.primary = "#4f7da4" -- 蓝黑
+theme.primary = "#458586" -- green
 -- theme.primary = "#61afef" -- blue
 -- theme.primary = "#C46B77" -- red
 -- theme.primary = "#d9a977" -- yellow
@@ -45,7 +44,7 @@ theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
 
-theme.bar_height = 24
+theme.bar_height = 28
 theme.useless_gap = dpi(2)
 
 -- window border

@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_DATA_HOME=$HOME/.local/share
+export XDG_CONFIG_HOME=$HOME/.config export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CACHE_HOME=$HOME/.cache
 
 export LANG=zh_CN.UTF-8
@@ -46,13 +45,12 @@ init_process nm-applet "nm-applet &" &
 init_process pnmixer "pnmixer &" &
 init_process fcitx5 "fcitx5 -d" &
 
-
-default_wm="awesome"
+default_wm="dwm"
 WINDOW_MANAGER="${WINDOW_MANAGER:-$default_wm}"
 
 case "$WINDOW_MANAGER" in
-    gwm)
-        exec gwm
+    kde)
+        exec startplasma-x11
         ;;
     awesome)
         exec awesome
