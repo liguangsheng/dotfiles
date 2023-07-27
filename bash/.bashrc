@@ -7,7 +7,7 @@ HISTSIZE=5000
 HISTFILESIZE=10000
 
 function include() {
-    [[ -f "$1" ]] && source "$1"
+    [[ -s "$1" ]] && source "$1"
 }
 
 alias grep='grep --color=auto'
@@ -40,7 +40,7 @@ export PATH="$PATH:$HOME/.local/bin"
 # 16 color prompt
 # export PS1='[\[\033[31m\]\u@\[\033[34m\]\h \[\033[36m\]\w]$ '
 # 256 color prompt
-export PS1='[\[\e[38;5;135m\]\u\[\e[0m\]@\[\e[38;5;166m\]\h\[\e[0m\] \[\e[38;5;118m\]\w\[\e[0m\]] $ '
+export PS1='[\[\e[38;5;135m\]\u\[\e[0m\]@\[\e[38;5;166m\]\h\[\e[0m\]:\[\e[38;5;118m\]\w\[\e[0m\]] $ '
 
 # editor
 export EDITOR='vim'
@@ -52,7 +52,7 @@ command -v thefuck &> /dev/null && eval "$(thefuck --alias)"
 command -v zoxide &> /dev/null && eval "$(zoxide init bash)"
 
 # starship as better prompt
-# command -v starship &> /dev/null && eval "$(starship init bash)"
+command -v starship &> /dev/null && eval "$(starship init bash)"
 
 # git
 alias g='git'
@@ -73,10 +73,16 @@ include $HOME/.go/env
 # rust
 include $HOME/.cargo/env
 
+# haskell
+include $HOME/.ghcup/env
+
 # emacs
 export EMACS_SERVER_FILE='$HOME/.emacs.d/server/server'
 export ALTERNATE_EDITOR='vim'
 alias e='emacsclient --no-wait'
+
+# docker
+include "$HOME/.config/envman/load.sh"
 
 # kubectl
 alias k='kubectl'
@@ -93,7 +99,7 @@ function klogs {
 }
 
 # print colors
-function list_colors {
+function list_colors() {
   for C in {0..255}; do
     tput setab $C
     echo -n "$C "
@@ -102,7 +108,4 @@ function list_colors {
   echo
 }
 
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-include $HOME/.ghcup/env

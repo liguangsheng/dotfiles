@@ -11,14 +11,11 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
-
+export EDITOR="vim"
+export PATH=/sbin:/usr/local/bin:$XDG_BIN_HOME:$HOME/dotfiles/bin:$ZSH_CACHE_DIR/completions/:$PATH
 
 mkdir -p $XDG_STATE_HOME/zsh
-mkdir -p $ZSH_CACHE_DIR
-
-bindkey -e
-autoload -Uz compinit
-compinit
+mkdir -p $ZSH_CACHE_DIR/completions/
 
 HISTFILE=$XDG_STATE_HOME/zsh/zsh_history
 HISTSIZE=10000
@@ -38,8 +35,9 @@ setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording en
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 setopt HIST_BEEP                 # Beep when accessing nonexistent history.
 
-export PATH=/sbin:/usr/local/bin:$XDG_BIN_HOME:$HOME/dotfiles/bin:$PATH
-export EDITOR="vim"
+bindkey -e
+autoload -Uz compinit
+compinit
 
 include $HOME/dotfiles/zsh/zim.sh
 include $HOME/dotfiles/zsh/utils.sh
@@ -148,7 +146,7 @@ include $NVM_DIR/bash_completion
 include $HOME/.config/envman/load.sh
 
 # private
-include $HOME/.local/private/env
-include $HOME/.local/private/party/env
+include $HOME/private/env
+include $HOME/private/party/env
 
 typeset -U PATH

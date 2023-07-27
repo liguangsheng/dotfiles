@@ -45,7 +45,7 @@ init_process nm-applet "nm-applet &" &
 init_process pnmixer "pnmixer &" &
 init_process fcitx5 "fcitx5 -d" &
 
-default_wm="dwm"
+default_wm="qtile"
 WINDOW_MANAGER="${WINDOW_MANAGER:-$default_wm}"
 
 case "$WINDOW_MANAGER" in

@@ -39,6 +39,7 @@ function _install_font() {
     fi
 
     wget "$1" -O $tmpfile
+    mkdir -p $USER_FONTS_HOME
     case $1 in
         *.zip) unzip -o -d $USER_FONTS_HOME/$fbname $tmpfile ;;
     esac
@@ -97,68 +98,8 @@ function bootstrap_config() {
     _stoh "$HOME/dotfiles/zsh/.zshrc" "$HOME/.zshrc"
 }
 
-function bootstrap_packages() {
-    if command -v go >/dev/null; then
-        go install github.com/cweill/gotests/gotests@latest
-        go install github.com/daixiang0/gci@v0.4.2
-        go install github.com/davidrjenni/reftools/cmd/fillstruct@latest
-        go install github.com/fatih/gomodifytags@latest
-        go install github.com/go-delve/delve/cmd/dlv@latest
-        go install github.com/josharian/impl@latest
-        go install github.com/sqs/goreturns@latest
-        go install golang.org/x/lint/golint@latest
-        go install golang.org/x/tools/cmd/goimports@latest
-        go install golang.org/x/tools/cmd/gomvpkg@latest
-        go install golang.org/x/tools/cmd/gorename@latest
-        go install golang.org/x/tools/cmd/stringer@latest
-        go install golang.org/x/tools/gopls@latest
-        go install mvdan.cc/sh/v3/cmd/shfmt@latest
-        go install mvdan.cc/gofumpt@latest
-    else
-        echo "go not found"
-    fi
-
-    if command -v pip >/dev/null; then
-        pip install --user psutil requests beautysh
-    else
-        echo "pip not found"
-    fi
-
-    if command -v cargo >/dev/null; then
-        cargo install du-dust fselect
-    else
-        echo "cargo not found"
-    fi
-}
-
-
-function bootstrap_gitconfig() {
-    echo "bootstrap git config"
-    git config --global alias.aa 'add -all'
-    git config --global alias.br branch
-    git config --global alias.ci commit
-    git config --global alias.cm 'commit -m'
-    git config --global alias.co checkout
-    git config --global alias.df 'diff'
-    git config --global alias.last 'log -1 HEAD --stat'
-    git config --global alias.ll 'log --oneline'
-    git config --global alias.pr 'pull --rebase'
-    git config --global alias.rh 'reset --hard'
-    git config --global alias.rv 'remote -v'
-    git config --global alias.sb 'status -sb'
-    git config --global alias.se '!git rev-list --all | xargs git grep -F'
-    git config --global alias.st status
-    git config --global core.autocrlf false
-    git config --global credential.helper store
-    git config --global help.autocorrect 20
-    git config --global init.defaultBranch main
-    git config --global pull.ff only
-    git config --global push.autoSetupRemote true
-    git config --global user.name liguangsheng
-}
-
 bootstrap_config
-bootstrap_gitconfig
+./git/config.sh
 _install_font https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/JetBrainsMono.zip
 _install_font https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Ubuntu.zip
 _install_font https://github.com/lxgw/LxgwWenKai/releases/download/v1.300/lxgw-wenkai-v1.300.zip 

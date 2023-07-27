@@ -47,10 +47,10 @@ MOD      = "mod4"
 SHIFT    = "shift"
 CONTROL  = "control"
 TERMINAL = guess_terminal([
+    'kitty',
     'alacritty',
     'wezterm',
     'st',
-    'kitty',
     'uxterm',
     'urxvt',
 ])
@@ -62,7 +62,7 @@ ICON_FONT = "JetBrainsMono Nerd Font"
 
 COLOR_PRIM    = "#4f7da4"
 COLOR_URGENT  = "#ff5555"
-COLOR_BG      = "#282c34"
+COLOR_BG      = "#1e2326"
 COLOR_BG_ALT  = "#222222"
 COLOR_FG      = "#f8f8f8"
 COLOR_FG_ALT  = "#666666"
@@ -215,7 +215,7 @@ left_widgets = [
     widget.CurrentLayout(),
     barsep,
     widget.GroupBox(
-        fontsize = 9,
+        fontsize = 12,
         margin_y = 3,
         margin_x = 8,
         padding_y = 5,
@@ -237,8 +237,8 @@ left_widgets = [
         urgent_text=COLOR_BG,
     ),
     barsep,
-    widget.WindowName(padding=5, foreground=COLOR_PRIM),
-    # widget.TaskList(),
+    # widget.WindowName(padding=5, foreground=COLOR_PRIM),
+    widget.TaskList(),
 ]
 
 right_widgets = [
@@ -275,9 +275,9 @@ screens = [
             left_widgets + right_widgets,
             background=COLOR_BG,
             foreground=COLOR_FG,
-            size=28,
+            size=32,
             margin=0,
-            opacity=0.85,
+            opacity=1,
         ),
     ),
 ]

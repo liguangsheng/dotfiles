@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# requirements:
-# - xsetroot
-# - feh
-# - pip install psutil requests
-
 function init_process() {
 	local binary_name=$1
 	local start_command=$2
@@ -32,5 +27,4 @@ init_process vmware-user 'vmware-user &' &
 init_process dunst 'dunst &' &
 init_process nm-applet 'nm-applet &' &
 # init_process picom 'picom -bc' &
-
 

@@ -118,7 +118,7 @@ mymeminfo = awful.widget.watch(configuration_bin .. "meminfo.sh", 1, function(wi
 								  local m = load("return " .. stdout)()
 								  m.Used = m.MemTotal - m.MemFree - m.Buffers - m.Cached - m.SReclaimable - m.Shmem
 								  m.UsedPercent = m.Used / m.MemTotal
-								  local text = string.format("%.0fMB(%.0f%%)", m.Used / 1024, m.UsedPercent * 100)
+								  local text = string.format("%.2fGB(%.0f%%)", m.Used / 1024 / 1024, m.UsedPercent * 100)
 								  widget:set_text(text)
 end, wibox.widget.textbox())
 mywidgets.container_meminfo_widget = create_icon_widget({

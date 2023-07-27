@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from datetime import datetime
 import os
-from libqtile import widget
 
+from libqtile import widget
 from libqtile.widget import base
 import psutil
 

@@ -17,6 +17,7 @@ if [ $# -eq 0 ]; then
     build_and_install "st"
     build_and_install "scroll"
     build_and_install "tabbed"
+    build_and_install "xsetbg"
 else
     # If the first argument is provided, install only that program
     build_and_install "$1"

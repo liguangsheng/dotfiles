@@ -5,10 +5,12 @@
 # - feh
 # - pip install psutil requests
 
+WALLPAPER=$HOME/dotfiles/suckless/wallpaper.jpg
+
 function init_wallpaper() {
     if command -v feh &> /dev/null; then
         if [[ -f $HOME/dotfiles/suckless/wallpaper.jpg ]]; then
-            feh --bg-scale $HOME/dotfiles/suckless/wallpaper.jpg
+            feh --bg-scale $WALLPAPER
             return
         fi
 
@@ -21,7 +23,11 @@ function init_wallpaper() {
     fi
 
     if command -v nitrogen &> /dev/null; then
-        nitrogen --set-scaled wallpaper.jpg
+        nitrogen --set-scaled $WALLPAPER
+    fi
+
+    if command -v xsetbg &> /dev/null; then
+        xsetbg $WALLPAPER
     fi
 
     notify-send "warning from startdwm.sh" "command feh not found"

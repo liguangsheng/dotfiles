@@ -16,3 +16,4 @@ zmodule ohmyzsh/ohmyzsh --root plugins/kubectl
 zmodule djui/alias-tips
 zmodule Aloxaf/fzf-tab
 zmodule sgpthomas/zsh-up-dir
+zmodule trystan2k/zsh-tab-title

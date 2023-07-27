@@ -68,7 +68,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 local theme = { "navarasu/onedark.nvim", name = "onedark", config = function() vim.cmd("colorscheme onedark") end, }
 
 -- local theme = {
@@ -92,6 +91,7 @@ local theme = { "navarasu/onedark.nvim", name = "onedark", config = function() v
 --     end,
 -- }
 --
+
 local barbecue = {
     "utilyre/barbecue.nvim",
     name = "barbecue",
@@ -409,7 +409,7 @@ require("lazy").setup({
     barbecue,
     file_explorer,
     telescope,
-    -- lsp,
+    lsp,
     autopairs,
     snippet,
     completion,
