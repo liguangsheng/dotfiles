@@ -20,6 +20,12 @@ if command -v zypper &> /dev/null; then
     sudo zypper purge-kernels
 fi
 
+# 清理dnf
+if command -v dnf &> /dev/null; then
+    echo "---> cleaning dnf"
+    sudo dnf clean all
+fi
+
 # 清理go缓存
 if command -v go &> /dev/null; then
 	echo "---> cleaning go cache"

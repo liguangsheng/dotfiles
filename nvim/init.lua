@@ -1,7 +1,6 @@
 -- [[ Basic Configuration ]],
 
-local TABWIDTH = 4
-vim.g.encoding = "UTF-8"
+local TABWIDTH = 4 vim.g.encoding = "UTF-8"
 vim.opt.background = "dark"
 vim.opt.clipboard:append("unnamed,unnamedplus")
 vim.opt.cursorline = true
@@ -68,29 +67,19 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local theme = { "navarasu/onedark.nvim", name = "onedark", config = function() vim.cmd("colorscheme onedark") end, }
+-- local theme = { "navarasu/onedark.nvim", name = "onedark", config = function() vim.cmd("colorscheme onedark") end, }
+-- local theme = { "Mofiqul/dracula.nvim", config = function() vim.cmd("colorscheme dracula") end, }
+-- local theme = { "catppuccin/nvim", name = "catppuccin", priority = 1000, config = function() vim.cmd("colorscheme catppuccin") end, }
+local theme = { "shaunsingh/nord.nvim", name = "nord", config = function() 
+    vim.g.nord_contrast = true
+    vim.g.nord_borders = true
+    vim.g.nord_disable_background = false
+    vim.g.nord_italic = false
+    vim.g.nord_uniform_diff_background = true
+    vim.g.nord_bold = true
+    vim.cmd("colorscheme nord") 
+end, }
 
--- local theme = {
---     'navarasu/onedark.nvim',
---     lazy = false,
---     priority = 1000,
---     config = function()
---         require('onedark').setup {
---             style = 'cool'
---         }
---         require('onedark').load()
---     end,
--- }
-
--- local theme = {
---     "olimorris/onedarkpro.nvim",
---     lazy = false,
---     priority = 1000,
---     config = function()
---         vim.cmd("colorscheme onedark_vivid")
---     end,
--- }
---
 
 local barbecue = {
     "utilyre/barbecue.nvim",
@@ -164,8 +153,8 @@ local autopairs = {
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
         local nvim_cmp = require('cmp')
         nvim_cmp.event:on(
-            'confirm_done',
-            cmp_autopairs.on_confirm_done()
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
         )
     end
 }
@@ -239,7 +228,7 @@ local telescope = {
     {
         "nvim-telescope/telescope-file-browser.nvim",
         dependencies = { "nvim-telescope/telescope.nvim",
-            "nvim-lua/plenary.nvim" }
+        "nvim-lua/plenary.nvim" }
     },
     { 'nvim-telescope/telescope-project.nvim' },
     { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make', },
@@ -249,55 +238,55 @@ local completion = {
     'hrsh7th/nvim-cmp',
     event = "InsertEnter",
     dependencies = { 'hrsh7th/cmp-buffer', 'hrsh7th/cmp-path', 'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lsp-signature-help',
-        'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip',
-    },
-    config = function()
-        local cmp = require 'cmp'
-        local luasnip = require 'luasnip'
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip',
+},
+config = function()
+    local cmp = require 'cmp'
+    local luasnip = require 'luasnip'
 
-        cmp.setup {
-            snippet = {
-                expand = function(args)
-                    luasnip.lsp_expand(args.body)
-                end,
+    cmp.setup {
+        snippet = {
+            expand = function(args)
+                luasnip.lsp_expand(args.body)
+            end,
+        },
+        mapping = cmp.mapping.preset.insert {
+            ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<CR>'] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
             },
-            mapping = cmp.mapping.preset.insert {
-                ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-                ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                ['<C-Space>'] = cmp.mapping.complete(),
-                ['<CR>'] = cmp.mapping.confirm {
-                    behavior = cmp.ConfirmBehavior.Replace,
-                    select = true,
-                },
-                ['<Tab>'] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
-                    else
-                        fallback()
-                    end
-                end, { 'i', 's' }),
-                ['<S-Tab>'] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
-                    else
-                        fallback()
-                    end
-                end, { 'i', 's' }),
-            },
-            sources = {
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' },
-                { name = 'buffer' },
-                { name = 'path' },
-                { name = 'nvim_lsp_signature_help' }
-            },
-        }
-    end
+            ['<Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_next_item()
+                elseif luasnip.expand_or_jumpable() then
+                    luasnip.expand_or_jump()
+                else
+                    fallback()
+                end
+            end, { 'i', 's' }),
+            ['<S-Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                elseif luasnip.jumpable(-1) then
+                    luasnip.jump(-1)
+                else
+                    fallback()
+                end
+            end, { 'i', 's' }),
+        },
+        sources = {
+            { name = 'nvim_lsp' },
+            { name = 'luasnip' },
+            { name = 'buffer' },
+            { name = 'path' },
+            { name = 'nvim_lsp_signature_help' }
+        },
+    }
+end
 }
 
 local lsp = {
@@ -335,7 +324,7 @@ local lsp = {
             nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
             nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
             nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols,
-                '[W]orkspace [S]ymbols')
+            '[W]orkspace [S]ymbols')
 
             -- See `:help K` for why this keymap
             nmap('K', vim.lsp.buf.hover, 'Hover Documentation')

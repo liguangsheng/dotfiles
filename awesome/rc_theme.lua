@@ -22,22 +22,22 @@ end
 
 theme.font = "JetBrainsMono Nerd Font 9"
 
+theme.primary = "#eba0ac"
 -- theme.primary = "#4f7da4" -- 蓝黑
-theme.primary = "#458586" -- green
+-- theme.primary = "#458586" -- green
 -- theme.primary = "#61afef" -- blue
 -- theme.primary = "#C46B77" -- red
 -- theme.primary = "#d9a977" -- yellow
-theme.darken_primary = darken_color(theme.primary, 0.5)
+theme.darken_primary = darken_color(theme.primary, 0.7)
 
--- theme.bg_normal     = "#282c34" -- doom one dark
-theme.bg_normal     = "#2a2e32" -- plasma brezze dark
+theme.bg_normal     = "#1e1e2e"
 theme.bg_widget     = theme.bg_normal
 theme.bg_focus      = theme.primary
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#444444"
 theme.bg_systray    = theme.bg_normal
 
-theme.fg_normal     = "#aaaaaa"
+theme.fg_normal     = "#cdd6f4"
 theme.fg_widget     = theme.fg_normal
 theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
@@ -48,20 +48,25 @@ theme.bar_height = 28
 theme.useless_gap = dpi(2)
 
 -- window border
-theme.border_width  = dpi(3)
+theme.border_width  = dpi(2)
 theme.border_focus  = theme.primary
-theme.border_normal = theme.darken_primary
-theme.border_marked = "#91231c"
+-- theme.border_normal = theme.darken_primary
+-- theme.border_marked = "#91231c"
+theme.border_normal = '#44475a'
+theme.border_marked = '#bd93f9'
 
 -- taglist
 theme.taglist_font = "AR PL UKai CN 10"
+theme.taglist_fg_focus = theme.bg_normal
 
 -- systray
 theme.systray_icon_spacing = 2
 theme.bg_systray = theme.bg_normal
 
 -- tasklist
-theme.tasklist_bg_normal = theme.darken_primary
+theme.tasklist_bg_normal = "#6c7086"
+theme.tasklist_fg_normal = theme.bg_normal
+theme.tasklist_fg_focus  = theme.bg_normal
 
 
 -- There are other variable sets

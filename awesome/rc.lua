@@ -51,7 +51,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_configuration_dir() .. "rc_theme.lua")
-beautiful.wallpaper = gears.filesystem.get_configuration_dir() .. "wallpaper.jpg"
+beautiful.wallpaper = gears.filesystem.get_configuration_dir() .. "wallpaper.png"
 local rc_widget = require("rc_widget")
 
 -- This is used later as the default terminal and editor to run.
@@ -191,7 +191,18 @@ awful.screen.connect_for_each_screen(function(s)
       set_wallpaper(s)
 
       -- Each screen has its own tag table.
-      awful.tag({ "临", "兵", "斗", "者", "皆", "阵", "列", "在", "前" }, s, awful.layout.layouts[1])
+      local layouts = {
+          awful.layout.suit.tile,
+          awful.layout.suit.tile,
+          awful.layout.suit.tile,
+          awful.layout.suit.max,
+          awful.layout.suit.tile,
+          awful.layout.suit.tile,
+          awful.layout.suit.tile,
+          awful.layout.suit.tile,
+          awful.layout.suit.tile,
+      }
+      awful.tag({ "临", "兵", "斗", "者", "皆", "阵", "列", "在", "前" }, s, layouts)
 
       -- Create a promptbox for each screen
       s.mypromptbox = awful.widget.prompt()

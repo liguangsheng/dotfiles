@@ -8,16 +8,16 @@ config = defaultConfig {
   -- appearance
   font =         "JetBrainsMono Nerd Font 9"
   , additionalFonts = [ "AR PL UKai CN 11", "TsangerJinKai05 11", "LXGW WenKai Mono 11", "monospace 9" ]
-  , bgColor =      "#1f2227"
-  , fgColor =      "#bbbbbb"
+  , bgColor =      "#282c37"
+  , fgColor =      "#abb2bf"
   , position =     TopSize L 100 30
-  , border =       BottomB
-  , borderColor =  "#407d52"
+  -- , border =       BottomB
+  -- , borderColor =  "#eba0ac"
 
   -- layout
   , sepChar =  "%"   -- delineator between plugin names and straight text
   , alignSep = "}{"  -- separator between left-right alignment
-  , template = "%UnsafeStdinReader% }{ \xf17c %kernel% | %uptime% | %dynnetwork% | %multicpu% | %memory% | %disku% | %date% |  %_XMONAD_TRAYPAD%"
+  , template = "%UnsafeStdinReader% }{ \xf17c %kernel% | %uptime% | %multicpu% | %memory% | %disku% | %date% |  %_XMONAD_TRAYPAD%"
 
   -- general behavior
   , lowerOnStart =     True    -- send to bottom of window stack on start

@@ -10,7 +10,7 @@ function install {
   fi
 }
 
-BUILDKIT_PROGRESS=auto DOCKER_BUILDKIT=1 docker build --file Dockerfile --output . .
+BUILDKIT_PROGRESS=plain DOCKER_BUILDKIT=1 docker build --file Dockerfile --output . .
 
 install bin/xmonad              $HOME/.local/bin
 install bin/xmonad-x86_64-linux $HOME/.cache/xmonad

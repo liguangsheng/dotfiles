@@ -12,9 +12,9 @@ import config_utils
 
 class Kernel(base.ThreadPoolText):
     defaults = [
-        ("format", "{uname}", "Formatting for field names."),
-        ("update_interval", 3600.0, "Update interval for the Memory"),
-    ]
+            ("format", "{uname}", "Formatting for field names."),
+            ("update_interval", 3600.0, "Update interval for the Memory"),
+            ]
 
     def __init__(self, **config):
         super().__init__("", **config)
@@ -27,9 +27,9 @@ class Kernel(base.ThreadPoolText):
 
 class Memory(base.ThreadPoolText):
     defaults = [
-        ("format", "{MemPercent: .0f}%", "Formatting for field names."),
-        ("update_interval", 1.0, "Update interval for the Memory"),
-    ]
+            ("format", "{MemPercent: .0f}%", "Formatting for field names."),
+            ("update_interval", 1.0, "Update interval for the Memory"),
+            ]
 
     def __init__(self, **config):
         super().__init__("", **config)
@@ -45,27 +45,32 @@ class Memory(base.ThreadPoolText):
 
 class Uptime(base.ThreadPoolText):
     defaults = [
-        ("format", "{days}d {hours}h {minutes}m {seconds}s", "Formatting for field names."),
-        ("update_interval", 1.0, "Update interval for the Memory"),
-    ]
+            ("format", "{days}d {hours}h {minutes}m {seconds}s", "Formatting for field names."),
+            ("update_interval", 1.0, "Update interval for the Memory"),
+            ]
 
     def __init__(self, **config):
         super().__init__("", **config)
         self.add_defaults(Uptime.defaults)
 
     def poll(self):
+        parts = []
         sec = int(datetime.now().timestamp() - psutil.boot_time())
         days, rem = divmod(sec, 86400)
+        parts.append(f'{days}')
         hours, rem = divmod(rem, 3600)
+        parts.append(f'{hours:02}')
         minutes, seconds= divmod(rem, 60)
-        return self.format.format(days=days, hours=hours, minutes=minutes, seconds=seconds)
+        parts.append(f'{minutes:02}')
+        parts.append(f'{seconds:02}')
+        return self.prefix + ' ' + ':'.join(parts)
 
 
 class QtileMemory(base.ThreadPoolText):
     defaults = [
-        ("format", "QM {qm}", "Formatting for field names."),
-        ("update_interval", 5.0, "Update interval for the Memory"),
-    ]
+            ("format", "QM {qm}", "Formatting for field names."),
+            ("update_interval", 5.0, "Update interval for the Memory"),
+            ]
 
     process = psutil.Process(os.getpid())
 
@@ -93,14 +98,14 @@ class DiskUsage(widget.DF):
             text = ""
         else:
             text = self.format.format(
-                p=self.partition,
-                s=size,
-                f=free,
-                u=used,
-                uf=self.user_free,
-                m=self.measure,
-                r=used / size * 100,
-                uh=config_utils.format_size(used),
-            )
+                    p=self.partition,
+                    s=size,
+                    f=free,
+                    u=used,
+                    uf=self.user_free,
+                    m=self.measure,
+                    r=used / size * 100,
+                    uh=config_utils.format_size(used),
+                    )
 
         return text

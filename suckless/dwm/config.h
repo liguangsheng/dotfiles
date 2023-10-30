@@ -38,7 +38,7 @@ static const char dmenuheight[]     = "28";
 
 // dark green scheme
 #define COL_PRIM "#13a4b6"
-#define COL_BACK "#1f2227"
+#define COL_BACK "#282c34"
 #define COL_FORE "#bbc2cf"
 static const char col_back[]        = COL_BACK;
 static const char col_fore[]        = COL_FORE;

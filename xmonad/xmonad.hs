@@ -6,30 +6,28 @@ import System.Exit (exitSuccess)
 import Text.Printf
 
 import XMonad
+import XMonad.Actions.TiledWindowDragging
 import XMonad.Config.Desktop
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
+import XMonad.Layout.DraggingVisualizer
 import XMonad.Layout.Grid
+import XMonad.Layout.Maximize
+import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.Named
-import XMonad.Layout.Renamed
 import XMonad.Layout.ToggleLayouts
-import XMonad.Layout.Maximize
+import XMonad.Util.ClickableWorkspaces
 import XMonad.Util.Cursor
 import XMonad.Util.EZConfig (additionalKeysP, additionalKeys, additionalMouseBindings)
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
-import XMonad.Util.Ungrab
-import XMonad.Util.ClickableWorkspaces
-import XMonad.Actions.TiledWindowDragging
-import XMonad.Layout.DraggingVisualizer
 import qualified XMonad.Util.Hacks as Hacks
 
-colorPrim     = "#407d52"
-colorBg       = "#282a34"
+colorPrim     = "#bd84f7"
+colorBg       = "#282c37"
 colorGrey     = "#484854"
 myTerminal    = "alacritty"
 myRofiDrunCmd = printf "rofi -show drun -theme-str '*{primary:%s;background:%s;}'" colorPrim colorBg
