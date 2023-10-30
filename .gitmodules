@@ -1,6 +1,0 @@
-[submodule ".config/alacritty/themes"]
-	path = .config/alacritty/themes
-	url = https://github.com/eendroroy/alacritty-theme
-[submodule ".config/.config/ranger/plugins/zoxide"]
-	path = .config/.config/ranger/plugins/zoxide
-	url = https://github.com/jchook/ranger-zoxide

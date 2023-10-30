@@ -1,4 +1,5 @@
-echo "Applying git config"
+#!/usr/bin/env bash
+
 git config --global alias.aa 'add -all'
 git config --global alias.br branch
 git config --global alias.ci commit
@@ -20,3 +21,8 @@ git config --global init.defaultBranch main
 git config --global pull.ff only
 git config --global push.autoSetupRemote true
 git config --global user.name liguangsheng
+
+if command -v nvim &> /dev/null; then
+    git config --global core.editor "nvim"
+fi
+

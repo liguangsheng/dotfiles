@@ -17,28 +17,9 @@ static const char *fonts[]          = { "JetBrainsMono Nerd Font:size=9:style=me
 static const char dmenufont[]       = "JetBrainsMono Nerd Font:size=9";
 static const char dmenuheight[]     = "28";
 
-// dark blue colors
-// #define COL_PRIM "#4f7da4"
-// #define COL_BACK "#2a2e32"
-// #define COL_FORE "#aaaaaa"
-// static const char col_prim[]        = COL_PRIM;
-// static const char col_back[]        = COL_BACK;
-// static const char col_fore[]        = COL_FORE;
-// static const char col_sel_fore[]    = "#ffffff";
-// static const char col_hide[]        = "#273152";
-// static const char col_unsel[]       = "#273e52";
-// static const char col_unsel_fore[]  = "#aaaaaa";
-// static const char *colors[][3]      = {
-// 	/*                fg               bg         border   */
-// 	[SchemeNorm]  = { col_fore,        col_back,  col_unsel },
-// 	[SchemeSel]   = { col_sel_fore,    col_prim,  col_prim  },
-// 	[SchemeUnsel] = { col_unsel_fore,  col_unsel, col_unsel },
-// 	[SchemeHid]   = { col_fore,        col_hide,  col_hide  },
-// };
-
 // dark green scheme
 #define COL_PRIM "#13a4b6"
-#define COL_BACK "#1f2227"
+#define COL_BACK "#282c34"
 #define COL_FORE "#bbc2cf"
 static const char col_back[]        = COL_BACK;
 static const char col_fore[]        = COL_FORE;
@@ -53,12 +34,8 @@ static const char *colors[][3]      = {
        [SchemeHid]   = { col_back, col_prim_alt, col_prim_alt },
 };
 
-
-// static const char col_prim[]        = "#005577"; /* origin cyan */
-
 /* tagging */
 static const char *tags[] = { "临", "兵", "斗", "者", "皆", "阵", "列", "前", "行" };
-/* static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" }; */
 
 static const Rule rules[] = {
 	/* xprop(1):

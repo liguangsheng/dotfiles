@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
+# vim:ft=sh
 
 export XDG_CONFIG_HOME=$HOME/.config export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CACHE_HOME=$HOME/.cache
 
 export LANG=zh_CN.UTF-8
 export LC_CTYPE=zh_CN.UTF-8
-export TERM='kitty'
-export TERMINAL='kitty'
 export LIBGL_ALWAYS_SOFTWARE=true
-export MESA_GL_VERSION_OVERRIDE=4.3 
+export MESA_GL_VERSION_OVERRIDE=4.3
 export MESA_GLSL_VERSION_OVERRIDE=430
-export GLFW_IM_MODULE=ibus
 export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
+export SDL_IM_MODULE=fcitx
+export GLFW_IM_MODULE=ibus
 eval "$(dbus-launch --sh-syntax --exit-with-session)"
 
 function init_process() {
@@ -45,27 +45,29 @@ init_process nm-applet "nm-applet &" &
 init_process pnmixer "pnmixer &" &
 init_process fcitx5 "fcitx5 -d" &
 
-default_wm="qtile"
-WINDOW_MANAGER="${WINDOW_MANAGER:-$default_wm}"
+WM="${WM:-awesomewm}"
 
-case "$WINDOW_MANAGER" in
-    kde)
-        exec startplasma-x11
-        ;;
-    awesome)
-        exec awesome
-        ;;
+case "$WM" in
     dwm)
         $HOME/dotfiles/suckless/startdwm.sh
+        ;;
+    xmonad)
+        $HOME/dotfiles/xmonad/startxmonad.sh
         ;;
     qtile)
         exec qtile start
         ;;
-    xmonad)
-        $HOME/dotfiles/.config/xmonad/startxmonad.sh
+    awesomewm)
+        exec awesome
+        ;;
+    gnome)
+        exec gnome-session
+        ;;
+    kde)
+        exec startplasma-x11
         ;;
     *)
-        echo "Invalid WINDOWMANAGER value: $WINDOWMANAGER"
+        echo "Invalid WM value: $WM"
         ;;
 esac
 

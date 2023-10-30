@@ -39,8 +39,7 @@ bindkey -e
 autoload -Uz compinit
 compinit
 
-include $HOME/dotfiles/zsh/zim.sh
-include $HOME/dotfiles/zsh/utils.sh
+include $HOME/dotfiles/zsh/zim_bootstrap.sh
 
 alias dus='sudo du -h -d 1 | sort -h'
 alias dur='sudo du -h -d 1 --exclude=proc | sort -h'

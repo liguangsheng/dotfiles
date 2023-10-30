@@ -4,15 +4,12 @@ GTAGS
 *gnupg
 *DS_Store
 emacs/.emacs.d/cache/*
-.backup/
 
 .zcompdump
 .zsh_history
 __pycache__/
 
-dwm/config.h
-
-.config/xmonad/xmonad
-.config/xmonad/xmonad-x86_64-linux
-.config/xmobar/xmobar
-.config/xmobar/xmobar-x86_64-linux
+xmonad/.config/xmonad/xmonad
+xmonad/.config/xmonad/xmonad-x86_64-linux
+xmobar/.config/xmobar/xmobar
+xmobar/.config/xmobar/xmobar-x86_64-linux

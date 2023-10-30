@@ -4,13 +4,15 @@
 if command -v journalctl &> /dev/null; then
 	echo "---> cleaning systemd journal"
 	sudo journalctl --vacuum-time=3d
+    echo ""
 fi
 
 # 清理pacman缓存
 if command -v paru &> /dev/null; then
     echo "---> cleaning pacman"
-    yes | paru -R $(pacman -Qdtq)
-    yes | paru -Sccd
+    paru -R $(pacman -Qdtq) --noconfirm
+    paru -Sccd --noconfirm
+    echo ""
 fi
 
 # 清理zypper
@@ -18,12 +20,21 @@ if command -v zypper &> /dev/null; then
     echo "---> cleaning zypper"
     sudo zypper clean --all
     sudo zypper purge-kernels
+    echo ""
+fi
+
+# 清理dnf
+if command -v dnf &> /dev/null; then
+    echo "---> cleaning dnf"
+    sudo dnf clean all
+    echo ""
 fi
 
 # 清理go缓存
 if command -v go &> /dev/null; then
 	echo "---> cleaning go cache"
 	go clean -cache -testcache -modcache -fuzzcache
+    echo ""
 fi
 
 # 清理rust缓存
@@ -41,6 +52,7 @@ if command -v rustup &> /dev/null; then
         echo "---> cleaning rustup toolchain"
         rustup toolchain remove stable
         rustup toolchain remove nightly
+        echo ""
     fi
 fi
 
@@ -48,22 +60,26 @@ fi
 if command -v pip &> /dev/null; then
     echo "---> cleaning pip cache"
     pip cache purge
+    echo ""
 fi
 
 # 清理npm
 if command -v npm &> /dev/null; then
     echo "---> cleaning npm cache"
     npm cache clean --force
+    echo ""
 fi
 
 # 清理docker
 if command -v docker &> /dev/null; then
     echo "---> cleaning docker cache"
     docker system prune -af
+    echo ""
 fi
 
 # 清理gopls
 if [ -d $HOME/.cache/gopls ]; then
     echo "---> cleaning gopls cache"
     rm -rf $HOME/.cache/gopls
+    echo ""
 fi
