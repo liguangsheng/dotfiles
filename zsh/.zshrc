@@ -126,6 +126,14 @@ export KUBECONFIG="$HOME/.kube/config"
 
 # stern
 alias stern0='stern --tail 0'
+stern0t() {
+    if [ -z "$1" ]; then
+        echo "Usage: stern0t <pattern>"
+        return 1
+    fi
+    local p="$1"
+    stern --tail 0 "$p" | tee "/tmp/${p}.log"
+}
 
 # rust
 export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
@@ -164,6 +172,17 @@ include $HOME/private/party/env
 # p4 command
 export PATH=$PATH:/opt/p4
 
+# vscode
 alias code="flatpak run com.visualstudio.code"
+
+# opencode
+export PATH=/home/lgs/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/home/lgs/.bun/_bun" ] && source "/home/lgs/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 typeset -U PATH

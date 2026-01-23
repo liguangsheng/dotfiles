@@ -9,6 +9,7 @@ list=(
     conky
     ctags
     dunst
+    emacs
     fastfetch
     kitty
     neofetch
