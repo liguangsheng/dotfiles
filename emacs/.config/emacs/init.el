@@ -85,6 +85,9 @@
 (show-paren-mode 1)
 (setq show-paren-style 'parenthesis)
 
+;; 默认开启行号显示
+(global-display-line-numbers-mode 1)
+
 ;; 自动配对
 (electric-pair-mode 1)
 
