@@ -167,7 +167,18 @@
   :config
   (evil-mode 1)
   (evil-set-initial-state 'messages-buffer-mode 'normal)
-  (evil-set-initial-state 'dashboard-mode 'normal))
+  (evil-set-initial-state 'dashboard-mode 'normal)
+  
+  ;; 启用平滑滚动
+  (setq scroll-step 1
+        scroll-conservatively 10000
+        scroll-margin 3
+        scroll-up-aggressively 0.01
+        scroll-down-aggressively 0.01)
+  
+  ;; 设置 C-d 和 C-u 为逐行滚动
+  (define-key evil-normal-state-map (kbd "C-d") (lambda () (interactive) (scroll-up-line)))
+  (define-key evil-normal-state-map (kbd "C-u") (lambda () (interactive) (scroll-down-line))))
 
 (use-package evil-collection
   :straight t
