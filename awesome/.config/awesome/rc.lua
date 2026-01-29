@@ -54,7 +54,7 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "catppuccin_mocha/rc_
 local rc_widget = require("rc_widget")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "wezterm"
+terminal = "kitty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 rofi_drun_cmd =

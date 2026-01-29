@@ -24,7 +24,7 @@
     # dynamic width from 0 to 300
     # width = (0, 300)
     # constant width of 300
-    width = 300
+    width = (0, 400)
 
     # The maximum height of a single notification, excluding the frame.
     height = 300
@@ -33,7 +33,7 @@
     origin = top-right
 
     # Offset from the origin
-    offset = 10x50
+    offset = 15x30
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -68,28 +68,28 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.). (X11 only)
-    transparency = 15
+    transparency = 20
 
     # Draw a line of "separator_height" pixel height between two
     # notifications.
     # Set to 0 to disable.
-    separator_height = 1
+    separator_height = 2
 
     # Padding between text and separator.
-    padding = 8
+    padding = 12
 
     # Horizontal padding.
-    horizontal_padding = 10
+    horizontal_padding = 16
 
     # Padding between text and icon.
-    text_icon_padding = 0
+    text_icon_padding = 8
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
-    frame_width = 0
+    frame_width = 2
 
     # Defines color of the frame around the notification window.
-    frame_color = "#282a36"
+    frame_color = "#bd93f9"
 
     # Define a color for the separator.
     # possible values are:
@@ -111,11 +111,12 @@
 
     ### Text ###
 
-    font = Monospace 10
+    # Font for notifications - using a more modern font stack
+    font = JetBrainsMono Nerd Font 10
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
-    line_height = 0
+    line_height = 4
 
     # Possible values are:
     # full: Allow a small subset of html markup in notifications:
@@ -190,13 +191,13 @@
     # Scale small icons up to this size, set to 0 to disable. Helpful
     # for e.g. small files or high-dpi screens. In case of conflict,
     # max_icon_size takes precedence over this.
-    min_icon_size = 0
+    min_icon_size = 32
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 64
+    max_icon_size = 48
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/Papirus-Dark/24x24/status/:/usr/share/icons/Papirus-Dark/24x24/devices/:/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
 
     ### History ###
 
@@ -229,7 +230,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 0
+    corner_radius = 8
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this
@@ -433,4 +434,33 @@
 #    appname = "some_volume_notifiers"
 #    set_stack_tag = "volume"
 #
+# Application-specific rules
+[spotify]
+    appname = Spotify
+    background = "#1db954"
+    foreground = "#ffffff"
+    timeout = 5
+
+[discord]
+    appname = Discord
+    background = "#5865f2"
+    foreground = "#ffffff"
+    timeout = 8
+
+[telegram]
+    appname = telegram-desktop
+    background = "#0088cc"
+    foreground = "#ffffff"
+    timeout = 8
+
+[volume]
+    summary = "Volume"
+    format = "<b>%s</b>\n%b"
+    timeout = 2
+
+[brightness]
+    summary = "Brightness"
+    format = "<b>%s</b>\n%b"
+    timeout = 2
+
 # vim: ft=cfg

@@ -3,7 +3,7 @@
 
 [ -f "$HOME/.xprofile" ] && . "$HOME/.xprofile"
 
-WM="${WM:-qtile}"
+WM="${WM:-awesomewm}"
 case "$WM" in
     dwm)
         $HOME/dotfiles/suckless/startdwm.sh

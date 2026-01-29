@@ -466,10 +466,133 @@
 
 
 ;; ============================================================================
+;; Buffer标签栏：tabbar
+;; ============================================================================
+
+(use-package tabbar
+  :straight t
+  :config
+  (tabbar-mode 1)
+  
+  ;; 根据主模式对缓冲区进行分组
+  (defun my-tabbar-buffer-groups ()
+    "Return the list of group names the current buffer belongs to.
+Return a list of at least one group name."
+    (list
+     (cond
+      ;; Check major mode
+      ((or (eq major-mode 'emacs-lisp-mode)
+           (eq major-mode 'lisp-mode))
+       "Emacs Lisp")
+      ((eq major-mode 'go-mode)
+       "Go")
+      ((eq major-mode 'python-mode)
+       "Python")
+      ((eq major-mode 'json-mode)
+       "JSON")
+      ((eq major-mode 'yaml-mode)
+       "YAML")
+      ((eq major-mode 'protobuf-mode)
+       "Protobuf")
+      ((memq major-mode
+             '(c-mode c++-mode))
+       "C/C++")
+      ((memq major-mode
+             '(js-mode js2-mode))
+       "JavaScript")
+      ((eq major-mode 'org-mode)
+       "Org")
+      ((memq major-mode
+             '(text-mode fundamental-mode))
+       "Text")
+      ;; Check filename
+      ((string-match-p (buffer-name) "*scratch*")
+       "Scratch")
+      ((string-match-p (buffer-name) "*Messages*")
+       "Messages")
+      ;; Default
+      (t
+       "Misc"))))
+  
+  ;; 自定义标签栏外观
+  (set-face-attribute 'tabbar-default nil
+                      :background "#282c34"
+                      :foreground "#5b6268"
+                      :height 0.9)
+  
+  (set-face-attribute 'tabbar-selected nil
+                      :background "#5b6268"
+                      :foreground "#bbc2cf"
+                      :box '(:line-width 1 :color "#5b6268")
+                      :weight 'bold)
+  
+  (set-face-attribute 'tabbar-unselected nil
+                      :background "#3a3f44"
+                      :foreground "#5b6268"
+                      :box '(:line-width 1 :color "#3a3f44"))
+  
+  (set-face-attribute 'tabbar-button nil
+                      :box '(:line-width 1 :color "#282c34")
+                      :inherit 'tabbar-default)
+  
+  (set-face-attribute 'tabbar-button-highlight nil
+                      :inherit 'tabbar-default)
+  
+  (set-face-attribute 'tabbar-highlight nil
+                      :background "#4b5263"
+                      :foreground "#bbc2cf"
+                      :underline nil)
+  
+  :custom
+  ;; 分组函数
+  (tabbar-buffer-groups-function 'my-tabbar-buffer-groups)
+  
+  ;; 标签栏外观设置
+  (tabbar-background-color "#282c34")
+  (tabbar-selected-background-color "#5b6268")
+  (tabbar-selected-foreground-color "#bbc2cf")
+  (tabbar-unselected-background-color "#3a3f44")
+  (tabbar-unselected-foreground-color "#5b6268")
+  (tabbar-button-background-color "#282c34")
+  (tabbar-button-highlight "#666666")
+  (tabbar-modified "*Modified*")
+  (tabbar-separator '(0.5))
+  
+  ;; 只显示文件缓冲区，隐藏特殊缓冲区
+  (tabbar-buffer-list-function
+   (lambda ()
+     (delq nil
+           (mapcar #'(lambda (b)
+                       (cond
+                        ;; Always include scratch buffer
+                        ((string= (buffer-name b) "*scratch*")
+                         (buffer-name b))
+                        ;; Include file buffers
+                        ((buffer-file-name b)
+                         (buffer-name b))
+                        ;; Include Dired buffers
+                        ((eq (with-current-buffer b major-mode) 'dired-mode)
+                         (buffer-name b))
+                        ;; Include other special buffers you want to see
+                        ((string-match-p "^\\*" (buffer-name b))
+                         nil)
+                        ;; Everything else
+                        (t (buffer-name b))))
+                   (buffer-list)))))
+  
+  :bind
+  (:map tabbar-mode-map
+        ("C-c t p" . tabbar-previous-tab)
+        ("C-c t n" . tabbar-next-tab)
+        ("C-c t k" . tabbar-kill-tab)
+        ("C-c t b" . tabbar-backward-tab)
+        ("C-c t f" . tabbar-forward-tab)))
+
+;; ============================================================================
 ;; 编程语言支持
 ;; ============================================================================
 
-;; Go语言支持
+;; Go语言支持::
 (use-package go-mode
   :straight t
   :mode "\\.go\\'"
