@@ -141,18 +141,18 @@ keys = [
 groups = [
     Group(
         str(1),
-        label="",
+        label="󰊠",
         matches=[Match(wm_class=re.compile(r"^(Emacs)$"))],
         layout="max",
     ),
-    Group(str(2), label="", layout="monadtall"),
-    Group(str(3), label="", layout="max"),
-    Group(str(4), label="", layout="monadwide"),
-    Group(str(5), label=""),
-    Group(str(6), label=""),
-    Group(str(7), label=""),
-    Group(str(8), label=""),
-    Group(str(9), label=""),
+    Group(str(2), label="󰊠", layout="monadtall"),
+    Group(str(3), label="󰊠", layout="max"),
+    Group(str(4), label="󰊠", layout="monadwide"),
+    Group(str(5), label="󰊠"),
+    Group(str(6), label="󰊠"),
+    Group(str(7), label="󰊠"),
+    Group(str(8), label="󰊠"),
+    Group(str(9), label="󰊠"),
 ]
 
 for i, group in enumerate(groups, start=1):
@@ -243,7 +243,7 @@ left_widgets = [
     # ),
     widget.Sep(linewidth=0, padding=6, foreground=COLOR_FG, background=COLOR_BG),
     widget.GroupBox(
-        fontsize=10,
+        fontsize=14,
         margin_y=3,
         margin_x=8,
         padding_y=5,
@@ -267,7 +267,7 @@ left_widgets = [
     barsep,
     # widget.CurrentLayoutIcon(padding=3, scale=0.6, foreground=COLOR_FG, background=COLOR_BG),
     widget.CurrentLayout(),
-    barsep,
+    # barsep,
     # widget.WindowName(padding=5, foreground=COLOR_PRIM),
     widget.TaskList(
         border=COLOR_PRIM,
@@ -279,6 +279,7 @@ left_widgets = [
         urgent_alert_method="border",
         urgert_border=COLOR_URGENT,
         window_name_location=True,
+        icon_size=16,
     ),
 ]
 
@@ -295,8 +296,8 @@ right_widgets = [
     barsep,
     config_widget.DiskUsage(format=" {r:.0f}%({uh})", visible_on_warn=False),
     barsep,
-    config_widget.QtileMemory(),
-    barsep,
+    # config_widget.QtileMemory(),
+    # barsep,
     widget.Clock(format=" %Y-%m-%d %H:%M:%S %A", font=ICON_FONT),
     barsep,
     widget.Systray(padding=2, icon_size=14),
