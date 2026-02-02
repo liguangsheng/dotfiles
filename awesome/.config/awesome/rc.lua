@@ -18,6 +18,22 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
 -- {{{ Error handling
+-- /tmp is always writable; log path: /tmp/awesome-errors.log
+local err_log_path = "/tmp/awesome-errors.log"
+
+local function log_error(kind, message)
+    pcall(function()
+        local f = io.open(err_log_path, "a")
+        if f then
+            local msg = tostring(message)
+            msg = msg:gsub("\n", " ")
+            f:write(os.date("%Y-%m-%d %H:%M:%S") .. " [" .. kind .. "] " .. msg .. "\n")
+            f:flush()
+            f:close()
+        end
+    end)
+end
+
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
@@ -26,6 +42,7 @@ if awesome.startup_errors then
         title = "Oops, there were errors during startup!",
         text = awesome.startup_errors,
     })
+    log_error("startup", awesome.startup_errors)
 end
 
 -- Handle runtime errors after startup
@@ -43,14 +60,18 @@ do
             title = "Oops, an error happened!",
             text = tostring(err),
         })
+        log_error("runtime", err)
         in_error = false
     end)
 end
+
+-- Write once on load so we know the log file is writable (remove this line later if you like)
+log_error("config", "awesome rc.lua loaded, error logging active")
 -- }}}
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_configuration_dir() .. "catppuccin_mocha/rc_theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir() .. "tokyo_night/rc_theme.lua")
 local rc_widget = require("rc_widget")
 
 -- This is used later as the default terminal and editor to run.
@@ -558,10 +579,14 @@ client.connect_signal("mouse::enter", function(c)
 end)
 
 client.connect_signal("focus", function(c)
-    c.border_color = beautiful.border_focus
+    if beautiful.border_focus then
+        c.border_color = beautiful.border_focus
+    end
 end)
 client.connect_signal("unfocus", function(c)
-    c.border_color = beautiful.border_normal
+    if beautiful.border_normal then
+        c.border_color = beautiful.border_normal
+    end
 end)
 -- }}}
 
