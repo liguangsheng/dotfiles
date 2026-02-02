@@ -231,7 +231,7 @@ barsep = widget.TextBox(
     text="|",
     background=COLOR_BG,
     foreground=COLOR_BAR_SEP,
-    padding=0,
+    padding=4,
     fontsize=9,
     font=ICON_FONT,
 )
@@ -298,10 +298,10 @@ right_widgets = [
     barsep,
     # config_widget.QtileMemory(),
     # barsep,
-    widget.Clock(format=" %Y-%m-%d %H:%M:%S %A", font=ICON_FONT),
+    widget.Clock(format=" %Y-%m-%d %H:%M:%S", font=ICON_FONT),
     barsep,
     widget.Systray(padding=2, icon_size=14),
-    widget.Sep(linewidth=0, padding=6, foreground=COLOR_FG, background=COLOR_BG),
+    widget.Sep(linewidth=0, padding=10, foreground=COLOR_FG, background=COLOR_BG),
 ]
 
 screens = [
