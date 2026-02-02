@@ -53,7 +53,7 @@ theme.systray_icon_spacing = 2
 theme.bg_systray          = theme.bg_normal
 
 theme.tasklist_bg_normal   = "#24283b"
-theme.tasklist_fg_normal   = theme.bg_normal
+theme.tasklist_fg_normal   = theme.fg_normal  -- 未激活窗口标题用亮色，便于区分
 theme.tasklist_fg_focus    = theme.bg_normal
 
 local taglist_square_size   = dpi(4)
