@@ -491,29 +491,26 @@ awful.rules.rules = {
         }
     },
 
-    -- Hide vmware-user window
-{
+    -- Hide vmware-user DND window (appears during drag-drop from host to VM)
+    {
         rule_any = {
-            name = { "vmware-user" }, -- 匹配 _NET_WM_NAME
-            class = { "Vmware", "vmware-user" }, -- 替换为实际的 WM_CLASS 值
-            type = { "_NET_WM_WINDOW_TYPE_DND" }, -- 匹配窗口类型
+            name = { "vmware-user" },
+            class = { "vmware-user", "VMware" },
+            type = { "dnd" },
         },
         properties = {
-            hidden = true, -- 隐藏窗口
-            minimized = true, -- 最小化窗口
-            floating = true, -- 设置为浮动窗口
-            skip_taskbar = true, -- 不显示在任务栏
-            focusable = false, -- 禁止窗口获取焦点
+            hidden = true,
+            minimized = true,
+            skip_taskbar = true,
+            focusable = false,
+            floating = true,
         },
         callback = function(c)
-            -- 强制移动到屏幕外
-            c:geometry({ x = -10000, y = -10000, width = 1, height = 1 })
-            -- 再次确保隐藏
+            -- 确保窗口被隐藏
             c.hidden = true
             c.minimized = true
-            -- 禁用窗口的映射（更强硬的隐藏方式）
-            c:unmanage() -- 尝试取消窗口管理
-            print("Attempting to hide window: " .. (c.name or "unknown"))
+            -- 移除窗口 decorations
+            awful.titlebar.remove(c)
         end
     },
 }
