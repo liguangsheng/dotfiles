@@ -527,6 +527,17 @@ client.connect_signal("manage", function(c)
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
+
+    -- Hide vmware-user DND window (VMware drag-drop from host)
+    local name = c.name or ""
+    local class = c.class or ""
+    local window_type = c.type or ""
+    if name:find("vmware%-user") or class:find("vmware") or window_type == "dnd" then
+        c.hidden = true
+        c.minimized = true
+        c.skip_taskbar = true
+        awful.titlebar.remove(c)
+    end
 end)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
