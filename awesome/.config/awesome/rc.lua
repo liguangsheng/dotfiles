@@ -1,6 +1,20 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nobeautiful.tdefault_hwpm.current()ing.
 pcall(require, "luarocks.loader")
 
+-- glib 2.80+ 将 Gio.UnixInputStream/UnixOutputStream 移至 GioUnix 命名空间，
+-- 需要 polyfill 以兼容 awesome 的 awful.spawn
+do
+   local lgi = require("lgi")
+   local Gio = lgi.Gio
+   if not Gio.UnixInputStream then
+      local ok, GioUnix = pcall(lgi.require, "GioUnix", "2.0")
+      if ok and GioUnix then
+         Gio.UnixInputStream = GioUnix.InputStream
+         Gio.UnixOutputStream = GioUnix.OutputStream
+      end
+   end
+end
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
