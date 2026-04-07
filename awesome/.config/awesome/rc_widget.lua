@@ -10,6 +10,28 @@ local icon_font = "Symbols Nerd Font Mono"
 local configuration_bin = gears.filesystem.get_configuration_dir() .. "bin/"
 local margin_vert = 6
 
+-- awful.widget.watch 在新版 awesome 中因 Gio.UnixInputStream 为 nil 而崩溃，
+-- 用 gears.timer + io.popen 替代
+local function watch_widget(cmd, interval, callback)
+   local widget = wibox.widget.textbox()
+   local function update()
+      local f = io.popen(cmd)
+      if f then
+         local stdout = f:read("*a")
+         f:close()
+         callback(widget, stdout)
+      end
+   end
+   update()
+   gears.timer {
+      timeout = interval,
+      autostart = true,
+      call_now = false,
+      callback = update,
+   }
+   return widget
+end
+
 local function icon_font_with_size(size)
    return icon_font .. " " .. size
 end
@@ -102,9 +124,9 @@ end
 local function create_kernel_widget()
    return create_boxed_widget({
 		 left_widget = create_icon_widget("", { forced_width = 14 }),
-		 right_widget = awful.widget.watch("uname -r", 600, function(widget, stdout)
-											  widget:set_text(stdout)
-		 end, wibox.widget.textbox()),
+		 right_widget = watch_widget("uname -r", 600, function(widget, stdout)
+		 widget:set_text(stdout)
+		 end),
    })
 end
 
@@ -112,9 +134,9 @@ end
 local function create_uptime_widget()
    return create_boxed_widget({
 		 left_widget = create_icon_widget("", { font_size = 9 }),
-		 right_widget = awful.widget.watch(configuration_bin .. "uptime.sh", 1, function(widget, stdout)
-											  widget:set_text(stdout)
-		 end, wibox.widget.textbox()),
+		 right_widget = watch_widget(configuration_bin .. "uptime.sh", 1, function(widget, stdout)
+		 widget:set_text(stdout)
+		 end),
    })
 end
 
@@ -122,9 +144,9 @@ end
 local function create_cpu_widget()
    return create_boxed_widget({
 		 left_widget = create_icon_widget("", { font_size = 9 }),
-		 right_widget = awful.widget.watch(configuration_bin .. "cpu.sh", 1, function(widget, stdout)
-											  widget:set_text(string.format("%.1f%%", stdout))
-		 end, wibox.widget.textbox()),
+		 right_widget = watch_widget(configuration_bin .. "cpu.sh", 1, function(widget, stdout)
+		 widget:set_text(string.format("%.1f%%", stdout))
+		 end),
    })
 end
 
@@ -132,13 +154,13 @@ end
 local function create_meminfo_widget()
    return create_boxed_widget({
 		 left_widget = create_icon_widget("",{  font_size = 9 }),
-		 right_widget = awful.widget.watch(configuration_bin .. "meminfo.sh", 1, function(widget, stdout)
-											  local m = load("return " .. stdout)()
-											  m.Used = m.MemTotal - m.MemFree - m.Buffers - m.Cached - m.SReclaimable - m.Shmem
-											  m.UsedPercent = m.Used / m.MemTotal
-											  local text = string.format("%.2fGB(%.0f%%)", m.Used / 1024 / 1024, m.UsedPercent * 100)
-											  widget:set_text(text)
-		 end, wibox.widget.textbox()),
+		 right_widget = watch_widget(configuration_bin .. "meminfo.sh", 1, function(widget, stdout)
+			 local m = load("return " .. stdout)()
+			 m.Used = m.MemTotal - m.MemFree - m.Buffers - m.Cached - m.SReclaimable - m.Shmem
+			 m.UsedPercent = m.Used / m.MemTotal
+			 local text = string.format("%.2fGB(%.0f%%)", m.Used / 1024 / 1024, m.UsedPercent * 100)
+			 widget:set_text(text)
+		 end),
    })
 end
 
@@ -146,9 +168,9 @@ end
 local function create_disk_widget()
    return create_boxed_widget({
 		 left_widget = create_icon_widget("", { font_size = 9 }),
-		 right_widget = awful.widget.watch(configuration_bin .. "disk.sh", 1, function(widget, stdout)
-											  widget:set_text(stdout)
-		 end, wibox.widget.textbox()),
+		 right_widget = watch_widget(configuration_bin .. "disk.sh", 1, function(widget, stdout)
+		 widget:set_text(stdout)
+		 end),
    })
 end
 
@@ -156,7 +178,7 @@ end
 local function create_traffic_widget()
    return create_boxed_widget({
 		 left_widget = create_icon_widget("", { font_size = 9 }),
-		 right_widget = awful.widget.watch(
+		 right_widget = watch_widget(
 			configuration_bin .. "traffic.sh",
 			1,
 			function(widget, stdout)
@@ -175,8 +197,7 @@ local function create_traffic_widget()
 			   end
 
 			   widget:set_text(formattedValue)
-			end,
-			wibox.widget.textbox()),
+			end),
    })
 end
 

@@ -185,4 +185,10 @@ export PATH=/home/lgs/.opencode/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# claude
+export CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1
+
 typeset -U PATH
+
+# OpenClaw Completion
+source "/home/lgs/.openclaw/completions/openclaw.zsh"

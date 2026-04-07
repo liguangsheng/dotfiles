@@ -2,7 +2,8 @@ local opt = vim.opt
 local cmd = vim.cmd
 local TABWIDTH = 4
 
-opt.background = "light"
+opt.termguicolors = true
+opt.background = "dark"
 opt.clipboard:append("unnamed,unnamedplus")
 opt.cursorline = true
 opt.expandtab = true
