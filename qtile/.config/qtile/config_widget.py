@@ -10,7 +10,7 @@ import psutil
 import config_utils
 
 
-class Kernel(base.ThreadPoolText):
+class Kernel(base.BackgroundPoll):
     defaults = [
             ("format", "{uname}", "Formatting for field names."),
             ("update_interval", 3600.0, "Update interval for the Memory"),
@@ -25,7 +25,7 @@ class Kernel(base.ThreadPoolText):
         return self.format.format(release=uname.release)
 
 
-class Memory(base.ThreadPoolText):
+class Memory(base.BackgroundPoll):
     defaults = [
             ("format", "{MemPercent: .0f}%", "Formatting for field names."),
             ("update_interval", 1.0, "Update interval for the Memory"),
@@ -43,7 +43,7 @@ class Memory(base.ThreadPoolText):
         return self.format.format(**val)
 
 
-class Uptime(base.ThreadPoolText):
+class Uptime(base.BackgroundPoll):
     defaults = [
             ("format", "{days}d {hours}h {minutes}m {seconds}s", "Formatting for field names."),
             ("update_interval", 1.0, "Update interval for the Memory"),
@@ -66,7 +66,7 @@ class Uptime(base.ThreadPoolText):
         return self.prefix + ' ' + ':'.join(parts)
 
 
-class QtileMemory(base.ThreadPoolText):
+class QtileMemory(base.BackgroundPoll):
     defaults = [
             ("format", "QM {qm}", "Formatting for field names."),
             ("update_interval", 5.0, "Update interval for the Memory"),
